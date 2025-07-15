@@ -29,6 +29,23 @@ public class Main {
             System.out.println( rows + " satır eklendi.");
             preparedStatement.close();
 
+            String updateSQL = "UPDATE users SET name = ? WHERE id = ?";
+            PreparedStatement updateStatement = connection.prepareStatement(updateSQL);
+            updateStatement.setString(1, "Can");
+            updateStatement.setInt(2, 1);
+
+            int updatedRows = updateStatement.executeUpdate();
+            System.out.println(" Güncellenen satır sayısı: " + updatedRows);
+            updateStatement.close();
+
+            String deleteSQL = "DELETE FROM users WHERE id = ?";
+            PreparedStatement deleteStatement = connection.prepareStatement(deleteSQL);
+            deleteStatement.setInt(1, 2);
+
+            int deletedRows = deleteStatement.executeUpdate();
+            System.out.println("Silinen satır sayısı: " + deletedRows);
+            deleteStatement.close();
+
             ResultSet resultSet = statement.executeQuery("SELECT * FROM users");
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
@@ -37,6 +54,7 @@ public class Main {
 
                 System.out.println("ID: " + id + ", Name: " + name + ", Email: " + email);
             }
+
             statement.close();
             DataBaseConnectorConfig.closeConntection();
             System.out.println("Bağlantı kapatıldı.");
