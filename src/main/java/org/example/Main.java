@@ -1,10 +1,7 @@
 package main.java.org.example;
 import main.java.org.example.Config.DataBaseConnectorConfig;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -22,7 +19,7 @@ public class Main {
                     """;
             statement.execute(createTableSQL);
             System.out.println("'users' tablosu başarıyla oluşturuldu.");
-            statement.close();
+
 
             String insertSQL = "INSERT INTO users(name, email) VALUES (?, ?)";
             PreparedStatement preparedStatement = connection.prepareStatement(insertSQL);
@@ -32,6 +29,15 @@ public class Main {
             System.out.println( rows + " satır eklendi.");
             preparedStatement.close();
 
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM users");
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                String email = resultSet.getString("email");
+
+                System.out.println("ID: " + id + ", Name: " + name + ", Email: " + email);
+            }
+            statement.close();
             DataBaseConnectorConfig.closeConntection();
             System.out.println("Bağlantı kapatıldı.");
 
