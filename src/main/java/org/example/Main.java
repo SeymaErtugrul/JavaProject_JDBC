@@ -1,5 +1,7 @@
 package main.java.org.example;
 import main.java.org.example.Config.DataBaseConnectorConfig;
+import main.java.org.example.dao.UserDaoImp;
+import main.java.org.example.user.User;
 
 import java.sql.*;
 
@@ -10,16 +12,16 @@ public class Main {
             System.out.println("Bağlantı başarılı!");
             Connection connection = DataBaseConnectorConfig.getConnection();
           Statement statement = connection.createStatement();
-//            String createTableSQL = """
-//                        CREATE TABLE IF NOT EXISTS users (
-//                            id SERIAL PRIMARY KEY,
-//                            name VARCHAR(255),
-//                            email VARCHAR(255)
-//                        );
-//                    """;
-//            statement.execute(createTableSQL);
-//            System.out.println("'users' tablosu başarıyla oluşturuldu.");
-//
+            String createTableSQL = """
+                        CREATE TABLE IF NOT EXISTS users (
+                            id SERIAL PRIMARY KEY,
+                            name VARCHAR(255),
+                            email VARCHAR(255)
+                        );
+                    """;
+            statement.execute(createTableSQL);
+            System.out.println("'users' tablosu başarıyla oluşturuldu.");
+
 //
 //            String insertSQL = "INSERT INTO users(name, email) VALUES (?, ?)";
 //            PreparedStatement preparedStatement = connection.prepareStatement(insertSQL);
@@ -56,6 +58,11 @@ public class Main {
 //            }
 //
 //            statement.close();
+
+            User user=new User(0,"seyma","seyma@gmail.com");
+            UserDaoImp userDaoImp=new UserDaoImp(connection);
+            userDaoImp.saveUser(user);
+
             DataBaseConnectorConfig.closeConntection();
             System.out.println("Bağlantı kapatıldı.");
 
