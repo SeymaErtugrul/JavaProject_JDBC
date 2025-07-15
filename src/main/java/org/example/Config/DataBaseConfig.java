@@ -1,4 +1,4 @@
-package org.example.Config;
+package main.java.org.example.Config;
 
 public class DataBaseConfig {
     public static  final String DataBase_Name="company_db";

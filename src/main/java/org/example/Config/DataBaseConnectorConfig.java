@@ -1,4 +1,4 @@
-package org.example.Config;
+package main.java.org.example.Config;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,7 +10,7 @@ public class DataBaseConnectorConfig {
     {
         try
         {
-            connection= DriverManager.getConnection(DataBaseConfig.DataBase_URL,DataBaseConfig.DataBase_UserName,DataBaseConfig.DataBase_Password);
+            connection= DriverManager.getConnection(DataBaseConfig.DataBase_URL, DataBaseConfig.DataBase_UserName, DataBaseConfig.DataBase_Password);
 
         }
         catch (Exception e)
